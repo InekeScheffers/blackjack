@@ -49,4 +49,21 @@ const shuffleDeck = (stackedDeck) => {
 	}
 }
 
-module.exports = {stackDeck:stackDeck}
+// function to take one card and delete it from deck
+const takeOneCard = (deck) => {
+	return deck.shift();
+}
+
+// function to take x cards and delete them from deck
+const takeCards = (deck, number) => {
+	// return an array with the cards
+	let cardsToReturn = [];
+
+	for(let i = 1; i <= number; i++) {
+		cardsToReturn.push(deck.shift());
+	}
+
+	return cardsToReturn;
+}
+
+module.exports = {stackDeck, takeOneCard, takeCards};
