@@ -15,6 +15,7 @@ app.use(session({
 }));
 
 const deck = require(__dirname + '/modules/deck');
+const score = require(__dirname + '/modules/score');
 
 app.get('/start', (request, response) => {
 	console.log("About to render start...");
@@ -28,14 +29,19 @@ app.get('/start', (request, response) => {
 	// delete these first two cards from deck
 	request.session.newShuffledDeck.shift();
 	request.session.newShuffledDeck.shift();
+
+	console.log(request.session.scoreDealer = score.getScore([request.session.cardsDealer[0]]));
+
 	// user gets the next first two cards of deck in his array/hand
 	request.session.cardsPlayer = [request.session.newShuffledDeck[0], request.session.newShuffledDeck[1]];
 	// delete these cards from deck
 	request.session.newShuffledDeck.shift();
 	request.session.newShuffledDeck.shift();
+
+	console.log(request.session.scorePlayer = score.getScore(request.session.cardsPlayer));
 	// send first card of dealer + both cards of player
 	//response.send([request.session.cardsDealer[0], request.session.cardsPlayer]);
-	response.render('game', {handDealer: [request.session.cardsDealer[0]], handPlayer: request.session.cardsPlayer})
+	response.render('game', {handDealer: [request.session.cardsDealer[0]], handPlayer: request.session.cardsPlayer, scoreDealer:request.session.scoreDealer, scorePlayer:request.session.scorePlayer})
 })
 
 app.get('/hit', (request, response) => {
