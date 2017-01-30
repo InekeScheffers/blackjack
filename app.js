@@ -2,6 +2,10 @@ const express = require('express');
 
 const app = express();
 
+// settings for pug
+app.set('views', __dirname + '/views');
+app.set('view engine', 'pug');
+
 const deck = require(__dirname + '/modules/deck');
 
 app.get('/start', (request, response) => {
@@ -31,7 +35,8 @@ app.get('/hit', (request, response) => {
 	//cardsPlayer.push(newShuffledDeck[0]);
 	//newShuffledDeck.shift();
 	//response.send([cardsDealer, cardsPlayer]);
-	response.send("Hit!")
+	//response.send("Hit!")
+	response.render('game')
 	// make game.pug render after /start, /hit, /stick and send data of all arrays to pug file with session?
 })
 
