@@ -2,14 +2,35 @@ head
   title Blackjack
 body
   div.dealer
-    div Dealer
+    div
+      h1 Dealer
     div.hand
+      h3 Hand:
+      - for (let i = handDealer.length - 1; i >= 0; i--)
+        p#card #{handDealer[i].rank} of #{handDealer[i].face}
     div.score
+      h3 Score:
+        p#score #{scoreDealer}
+  br
   div.player
-    div Player
+    div
+      h1 Player
     div.hand
+      h3 Hand:
+      - for (let i = handPlayer.length - 1; i >= 0; i--)
+        p#card #{handPlayer[i].rank} of #{handPlayer[i].face}
     div.score
-    div.result
+      h3 Score:
+        p#score #{scorePlayer}
+  div.result
+    h2#result #{result}
+  br
   div.hit
+    form(name='hit' action='hit')
+      button(type='submit') Hit!
   div.stand
+    form(name='stick' action='stick')
+      button(type='submit') Stick!
   div.deal
+    form(name='deal' action='start')
+      button(type='submit') Deal!

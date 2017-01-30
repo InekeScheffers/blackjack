@@ -10,7 +10,7 @@ class Card {
 // shuffles new deck by calling the function shuffleDeck and return a shuffled deck to the game
 const stackDeck = () => {
 	const ranks = new Array("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
-	const faces = new Array("D", "C", "H", "S");
+	const faces = new Array("Diamonds", "Clubs", "Hearts", "Spades");
 
 	// make array for all 52 cards
 	this.cards = new Array([]);
