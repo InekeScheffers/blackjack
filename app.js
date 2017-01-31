@@ -18,6 +18,7 @@ app.use(session({
 const deck = require(__dirname + '/modules/deck');
 const score = require(__dirname + '/modules/score');
 const viewData = require(__dirname + '/modules/viewData');
+const dealer = require(__dirname + '/modules/dealer');
 
 app.get('/start', (request, response) => {
 	console.log("About to deal...");
@@ -46,7 +47,6 @@ app.get('/start', (request, response) => {
 
 app.get('/hit', (request, response) => {
 	console.log("About to hit...");
-
 	let session = request.session;
 
 	// add a card to player's hand
@@ -69,7 +69,29 @@ app.get('/hit', (request, response) => {
 
 app.get('/stick', (request, response) => {
 	console.log("About to stick...");
-	response.send("Stick!");
+	//response.send("Stick!");
+	let session = request.session;
+	// calculate score of both cards of dealer
+	//session.scoreDealer = score.getScore(session.cardsDealer);
+	let resultDealer = dealer.playDealer(session.cardsDealer, session.cardDeck);
+	console.log(resultDealer)
+	let stickData = {
+		handDealer:		resultDealer.hand,
+		handPlayer:		session.cardsPlayer,
+		scoreDealer:	resultDealer.score,
+		scorePlayer:	session.scorePlayer
+	}
+
+	if (resultDealer.score > 21) {
+		stickData.result = "Dealer busted, you win!"
+		response.render('game', stickData)
+	} else if(resultDealer.score >= session.scorePlayer){
+		stickData.result = "You lose!"
+		response.render('game', stickData)
+	} else {
+		stickData.result = "You win!"
+		response.render('game', stickData)
+	}
 })
 
 // set port where app listens
