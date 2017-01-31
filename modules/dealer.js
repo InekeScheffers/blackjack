@@ -4,8 +4,6 @@ const deck = require(__dirname + '/deck');
 const playDealer = (cardsDealer, cardDeck) => {
 
   let currentScoreDealer = score.getScore(cardsDealer);
-  console.log(cardsDealer)
-  console.log(currentScoreDealer)
 
   // Check if dealer's total is < 17 then deal another card
   if (currentScoreDealer < 17) {

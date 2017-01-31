@@ -26,11 +26,11 @@ body
     h2#result #{result}
   br
   div.hit
-    form(name='hit' action='hit')
-      button(type='submit') Hit!
-  div.stand
-    form(name='stick' action='stick')
-      button(type='submit') Stick!
+    a(href='/hit')
+      button Hit!
+  div.stick
+    a(href='/finish')
+      button Stick!
   div.deal
-    form#dealform(name='deal' action='start')
-      button#deal(type='submit') Deal!
+    a(href='/start')
+      button Deal!

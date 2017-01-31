@@ -6,7 +6,7 @@ const dealer = require(__dirname + '/../modules/dealer');
 // create a router
 const router = express.Router();
 
-router.route('/stick')
+router.route('/finish')
 	.get((request, response) => {
   	console.log("About to stick...");
   	//response.send("Stick!");
@@ -24,14 +24,13 @@ router.route('/stick')
 
   	if (resultDealer.score > 21) {
   		stickData.result = "Dealer busted, you win!"
-  		response.render('game', stickData)
   	} else if(resultDealer.score >= session.scorePlayer){
   		stickData.result = "You lose!"
-  		response.render('game', stickData)
   	} else {
   		stickData.result = "You win!"
-  		response.render('game', stickData)
   	}
+
+    response.render('game', stickData)
   });
 
 //export this router

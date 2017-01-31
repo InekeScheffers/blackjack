@@ -17,12 +17,12 @@ app.use(session({
 // require routes
 const startRouter = require(__dirname + '/routes/start');
 const hitRouter = require(__dirname + '/routes/hit');
-const stickRouter = require(__dirname + '/routes/stick');
+const finishRouter = require(__dirname + '/routes/finish');
 
 // use routes
 app.use('/', startRouter);
 app.use('/', hitRouter);
-app.use('/', stickRouter);
+app.use('/', finishRouter);
 
 // set port where app listens
 app.listen(8000);
