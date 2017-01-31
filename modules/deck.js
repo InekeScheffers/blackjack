@@ -24,14 +24,14 @@ const stackDeck = () => {
 			}
 	}
 
-	console.log("Stacked deck with 52 cards");
+	console.log("Stack deck with 52 cards...");
 
-	// shuffle the new stacked deck
+	// shuffle the stacked deck
 	shuffleDeck(this.cards);
 
-	console.log("Shuffled newly stacked deck")
+	console.log("Shuffle stacked deck...")
 
-	// return new and shuffled deck
+	// return shuffled deck
 	return this.cards
 }
 

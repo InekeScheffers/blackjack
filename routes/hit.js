@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.route('/hit')
 	.get((request, response) => {
-  	console.log("About to hit...");
+  	console.log("Hit!");
   	let session = request.session;
 
   	// add a card to player's hand
@@ -18,17 +18,13 @@ router.route('/hit')
   	// calculate current score of player
   	session.scorePlayer = score.getScore(session.cardsPlayer);
 
-  	let hitViewData = viewData.generate(session);
-
-  	// result to viewData object when score goes over 21 or is 21
-  	if(session.scorePlayer > 21) {
-  		hitViewData.result = "Result: Busted. You lose.";
-  	} else if(session.scorePlayer === 21) {
-  		hitViewData.result = "Result: Blackjack! You win.";
+  	// if it goes over or === 21 redirect to route /finish
+  	if(session.scorePlayer >= 21) {
+  		return response.redirect('finish');
   	}
 
-  	// render game and send generated data to game.pug, including result now
-  	response.render('game', hitViewData);
+  	// if it is under 21 render the game with the newly drawn card and score so player can choose hit or stick again
+  	response.render('game', viewData.generate(session));
   })
 
 //export this router
