@@ -13,6 +13,8 @@ router.route('/start')
   	console.log("About to deal...");
   	// store request.session in session so it's shorter to type
   	let session = request.session;
+		// store gamestate
+		session.isFinished = false;
   	// make shuffled deck and store it in session
   	session.cardDeck = deck.stackDeck();
 
@@ -33,8 +35,11 @@ router.route('/start')
   		return response.redirect('finish');
   	}
 
+		let startViewData = viewData.generate(session);
+		startViewData.isFinished = false;
+
   	// render game and send generated data (cards and scores) to game.pug
-  	response.render('game', viewData.generate(session));
+  	response.render('game', startViewData);
   });
 
 //export this router

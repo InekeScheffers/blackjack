@@ -13,8 +13,12 @@ router.route('/finish')
   	console.log("About to finish...");
   	//response.send("Stick!");
   	let session = request.session;
+    // store gamestate in session (backend-check)
+		session.isFinished = true;
     // generate current viewData so you can add results in the next steps
     const finishViewData = viewData.generate(session);
+    // store gamestate in viewData (frontend-check)
+    finishViewData.isFinished = true;
 
     // if player's score is over 21, you're always busted, show all dealer's cards
     if(session.scorePlayer > 21){

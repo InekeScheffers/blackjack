@@ -27,10 +27,10 @@ body
   br
   div.hit
     a(href='/hit')
-      button Hit!
+      button(disabled=isFinished)#hit Hit!
   div.stick
     a(href='/finish')
-      button Stick!
+      button(disabled=isFinished)#stick Stick!
   div.deal
     a(href='/start')
-      button Deal!
+      button(disabled=!isFinished)#deal Deal!
