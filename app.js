@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+// use mongodb to store session data so you can return to the game at any point
 const MongoStore = require('connect-mongo')(session);
 
 const app = express();

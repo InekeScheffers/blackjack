@@ -8,26 +8,28 @@ const score = require(__dirname + '/../modules/score');
 // create a router
 const router = express.Router();
 
+// renamed route so it's clear this is an api-endpoint
 router.route('/api/finish')
 	.get((request, response) => {
   	console.log("About to finish...");
-  	//response.send("Stick!");
+
   	let session = request.session;
-    // if player requests finish before ever starting a game redirect to start
+
+    // if player requests hit before ever starting a game redirect to start to deal new game
 		if(session.isFinished === undefined) {
       return response.redirect('start')
     }
-    // if the game is over and finish is still requested show error message and let player deal again
+    // if the game is over and finish is still requested add error message to json data
     else if(session.isFinished){
       let currentViewData = viewData.generateFinish(session);
 			currentViewData.isFinished = true;
 			currentViewData.error = "Game is finished, first start a new game."
-			//response.render('game', currentViewData);
+
       response.json(currentViewData);
 		}
 		// else finish!
 		else {
-      // store gamestate in session (backend-check)
+      // store gamestate in session (for backend-check)
   		session.isFinished = true;
       // generate current viewData so you can add results in the next steps
       const finishViewData = viewData.generateFinish(session);
@@ -75,7 +77,7 @@ router.route('/api/finish')
         }
         // if dealer's score < 21
         else {
-          // dealer takes cards > 17
+          // dealer takes cards >= 17
           let resultDealer = dealer.playDealer(session.cardsDealer, session.cardDeck);
 
           finishViewData.handDealer = resultDealer.hand;
@@ -99,7 +101,7 @@ router.route('/api/finish')
           }
         }
       }
-      //response.render('game', finishViewData);
+      //response with results of game in json
       response.json(finishViewData);
     }
   });

@@ -1,5 +1,6 @@
 const score = require(__dirname + '/score');
 
+// module to generate viewData to send to client in json
 const generateStart = (session) => {
 	return {
 			handDealer:		[session.cardsDealer[0]],

@@ -8,6 +8,7 @@ const viewData = require(__dirname + '/../modules/viewData');
 // create a router
 const router = express.Router();
 
+// renamed route so it's clear this is an api-endpoint
 router.route('/api/start')
 	.get((request, response) => {
 		let session = request.session;
@@ -15,14 +16,14 @@ router.route('/api/start')
 		if(session.isFinished === false && session.isFinished !== undefined){
 			let currentViewData = viewData.generateStart(session);
 			currentViewData.error = "First finish this game.";
-			//response.render('game', currentViewData);
+
+			// response with data of current game + error to first finish the game in json
 			response.json(currentViewData);
 		}
-		// session.isFinished was never defined yet (game didn't start yet) or it has started and it has ended, deal
+		// session.isFinished was never defined yet (game didn't start yet) or it has ended, deal
 		else if(session.isFinished === undefined || session.isFinished){
 	  	console.log("About to deal...");
-	  	// store request.session in session so it's shorter to type
-	  	//let session = request.session;
+
 			// store gamestate
 			session.isFinished = false;
 	  	// make shuffled deck and store it in session
@@ -40,7 +41,7 @@ router.route('/api/start')
 	  	// calculate score of player's entire hand
 	  	session.scorePlayer = score.getScore(session.cardsPlayer);
 
-			// if player's score === 21 go to route /finish
+			// if player's score === 21 redirect to route /finish to see result
 	  	if(session.scorePlayer === 21) {
 	  		return response.redirect('finish');
 	  	}
@@ -48,8 +49,7 @@ router.route('/api/start')
 			let startViewData = viewData.generateStart(session);
 			startViewData.isFinished = false;
 
-	  	// render game and send generated data (cards and scores) to game.pug
-	  	//response.render('game', startViewData);
+	  	// response with data of newly started game in json
 			response.json(startViewData)
 		}
   });
