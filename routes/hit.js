@@ -18,8 +18,8 @@ router.route('/hit')
 			hitViewData.isFinished = true;
 			hitViewData.handDealer = session.cardsDealer;
 			hitViewData.scoreDealer = score.getScore(session.cardsDealer);
-			hitViewData.error = "Game is finished, first start a new game."
-			response.render('game', hitViewData)
+			hitViewData.error = "Game is finished, first start a new game.";
+			response.render('game', hitViewData);
 		}
 		// else hit!
 		else {

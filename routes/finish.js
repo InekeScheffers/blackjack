@@ -15,10 +15,12 @@ router.route('/finish')
   	let session = request.session;
     // if the game is over and hit is still requested show error message and let player deal again
 		if(session.isFinished = undefined || session.isFinished){
-			let hitViewData = viewData.generate(session);
+      let hitViewData = viewData.generate(session);
 			hitViewData.isFinished = true;
+			hitViewData.handDealer = session.cardsDealer;
+			hitViewData.scoreDealer = score.getScore(session.cardsDealer);
 			hitViewData.error = "Game is finished, first start a new game."
-			response.render('game', hitViewData)
+			response.render('game', hitViewData);
 		}
 		// else finish!
 		else {

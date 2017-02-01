@@ -14,7 +14,7 @@ router.route('/start')
 		// if game is not over and session.isFinished is already defined because player has started a game, rerender and show error
 		if(session.isFinished === false && session.isFinished !== undefined){
 			let currentViewData = viewData.generate(session);
-			currentViewData.error = "First finish this game."
+			currentViewData.error = "First finish this game.";
 			response.render('game', currentViewData);
 		}
 		// session.isFinished was never defined yet (game didn't start yet) or it has started and it has ended, deal
