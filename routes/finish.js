@@ -13,8 +13,12 @@ router.route('/finish')
   	console.log("About to finish...");
   	//response.send("Stick!");
   	let session = request.session;
-    // if the game is over and hit is still requested show error message and let player deal again
-		if(session.isFinished = undefined || session.isFinished){
+    // if player requests finish before ever starting a game redirect to start
+		if(session.isFinished === undefined) {
+      return response.redirect('start')
+    }
+    // if the game is over and finish is still requested show error message and let player deal again
+    else if(session.isFinished){
       let currentViewData = viewData.generateFinish(session);
 			currentViewData.isFinished = true;
 			currentViewData.error = "Game is finished, first start a new game."
@@ -94,6 +98,7 @@ router.route('/finish')
           }
         }
       }
+      console.log(session)
       response.render('game', finishViewData);
     }
   });

@@ -12,8 +12,12 @@ router.route('/hit')
 	.get((request, response) => {
 		let session = request.session;
 
+		// if player requests hit before ever starting a game redirect to start
+		if(session.isFinished === undefined) {
+      return response.redirect('start')
+    }
 		// if the game is over and hit is still requested show error message and let player deal again
-		if(session.isFinished = undefined || session.isFinished){
+		else if(session.isFinished){
 			let currentViewData = viewData.generateFinish(session);
 			currentViewData.isFinished = true;
 			currentViewData.error = "Game is finished, first start a new game.";
