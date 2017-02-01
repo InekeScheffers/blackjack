@@ -8,7 +8,7 @@ const score = require(__dirname + '/../modules/score');
 // create a router
 const router = express.Router();
 
-router.route('/finish')
+router.route('/api/finish')
 	.get((request, response) => {
   	console.log("About to finish...");
   	//response.send("Stick!");

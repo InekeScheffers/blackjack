@@ -8,21 +8,17 @@ const viewData = require(__dirname + '/../modules/viewData');
 // create a router
 const router = express.Router();
 
-router.route('/hit')
+router.route('/api/hit')
 	.get((request, response) => {
 		let session = request.session;
 
 		// if player requests hit before ever starting a game redirect to start
 		if(session.isFinished === undefined) {
-      return response.redirect('start')
+      response.json({error: "gamestate invalid"});
     }
 		// if the game is over and hit is still requested show error message and let player deal again
 		else if(session.isFinished){
-			let currentViewData = viewData.generateFinish(session);
-			currentViewData.isFinished = true;
-			currentViewData.error = "Game is finished, first start a new game.";
-			//response.render('game', currentViewData);
-			response.json(currentViewData);
+			response.json({error: "gamestate finished"});
 		}
 		// else hit!
 		else {

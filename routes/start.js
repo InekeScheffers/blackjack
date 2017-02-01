@@ -8,7 +8,7 @@ const viewData = require(__dirname + '/../modules/viewData');
 // create a router
 const router = express.Router();
 
-router.route('/start')
+router.route('/api/start')
 	.get((request, response) => {
 		let session = request.session;
 		// if game is not over and session.isFinished is already defined because player has started a game, rerender and show error
