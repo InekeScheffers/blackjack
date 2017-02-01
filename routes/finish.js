@@ -98,7 +98,6 @@ router.route('/finish')
           }
         }
       }
-      console.log(session)
       response.render('game', finishViewData);
     }
   });

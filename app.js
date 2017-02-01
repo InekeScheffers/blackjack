@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const app = express();
 
@@ -11,7 +12,8 @@ app.set('view engine', 'pug');
 app.use(session({
 	secret:'suuuuuuper secret',
 	resave:true,
-	saveUninitialized: false
+	saveUninitialized: false,
+	store: new MongoStore({ url: 'mongodb://localhost/blackjack' })
 }));
 
 // require routes
