@@ -14,7 +14,7 @@ router.route('/hit')
 
 		// if player requests hit before ever starting a game redirect to start
 		if(session.isFinished === undefined) {
-      return response.redirect('start')
+      return response.redirect('start');
     }
 		// if the game is over and hit is still requested show error message and let player deal again
 		else if(session.isFinished){

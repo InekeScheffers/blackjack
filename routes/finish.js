@@ -15,13 +15,13 @@ router.route('/finish')
   	let session = request.session;
     // if player requests finish before ever starting a game redirect to start
 		if(session.isFinished === undefined) {
-      return response.redirect('start')
+      return response.redirect('start');
     }
     // if the game is over and finish is still requested show error message and let player deal again
     else if(session.isFinished){
       let currentViewData = viewData.generateFinish(session);
 			currentViewData.isFinished = true;
-			currentViewData.error = "Game is finished, first start a new game."
+			currentViewData.error = "Game is finished, first start a new game.";
 			response.render('game', currentViewData);
 		}
 		// else finish!
@@ -74,7 +74,7 @@ router.route('/finish')
         }
         // if dealer's score < 21
         else {
-          // dealer takes cards > 17
+          // dealer takes cards >= 17
           let resultDealer = dealer.playDealer(session.cardsDealer, session.cardDeck);
 
           finishViewData.handDealer = resultDealer.hand;

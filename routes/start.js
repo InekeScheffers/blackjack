@@ -20,8 +20,7 @@ router.route('/start')
 		// session.isFinished was never defined yet (game didn't start yet) or it has started and it has ended, deal
 		else if(session.isFinished === undefined || session.isFinished){
 	  	console.log("About to deal...");
-	  	// store request.session in session so it's shorter to type
-	  	//let session = request.session;
+
 			// store gamestate
 			session.isFinished = false;
 	  	// make shuffled deck and store it in session
