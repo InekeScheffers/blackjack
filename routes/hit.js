@@ -14,12 +14,10 @@ router.route('/hit')
 
 		// if the game is over and hit is still requested show error message and let player deal again
 		if(session.isFinished = undefined || session.isFinished){
-			let hitViewData = viewData.generate(session);
-			hitViewData.isFinished = true;
-			hitViewData.handDealer = session.cardsDealer;
-			hitViewData.scoreDealer = score.getScore(session.cardsDealer);
-			hitViewData.error = "Game is finished, first start a new game.";
-			response.render('game', hitViewData);
+			let currentViewData = viewData.generateFinish(session);
+			currentViewData.isFinished = true;
+			currentViewData.error = "Game is finished, first start a new game.";
+			response.render('game', currentViewData);
 		}
 		// else hit!
 		else {
@@ -37,7 +35,7 @@ router.route('/hit')
 	  	}
 
 	  	// if it is under 21 render the game with the newly drawn card and score so player can choose hit or stick again
-	  	response.render('game', viewData.generate(session));
+	  	response.render('game', viewData.generateStart(session));
 		}
   })
 

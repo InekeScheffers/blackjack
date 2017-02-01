@@ -15,19 +15,17 @@ router.route('/finish')
   	let session = request.session;
     // if the game is over and hit is still requested show error message and let player deal again
 		if(session.isFinished = undefined || session.isFinished){
-      let hitViewData = viewData.generate(session);
-			hitViewData.isFinished = true;
-			hitViewData.handDealer = session.cardsDealer;
-			hitViewData.scoreDealer = score.getScore(session.cardsDealer);
-			hitViewData.error = "Game is finished, first start a new game."
-			response.render('game', hitViewData);
+      let currentViewData = viewData.generateFinish(session);
+			currentViewData.isFinished = true;
+			currentViewData.error = "Game is finished, first start a new game."
+			response.render('game', currentViewData);
 		}
 		// else finish!
 		else {
       // store gamestate in session (backend-check)
   		session.isFinished = true;
       // generate current viewData so you can add results in the next steps
-      const finishViewData = viewData.generate(session);
+      const finishViewData = viewData.generateFinish(session);
       // store gamestate in viewData (frontend-check)
       finishViewData.isFinished = true;
 
@@ -35,8 +33,6 @@ router.route('/finish')
       if(session.scorePlayer > 21){
         // add total score and both cards to viewData
         let currentScoreDealer = score.getScore(session.cardsDealer);
-        finishViewData.handDealer = session.cardsDealer;
-        finishViewData.scoreDealer = currentScoreDealer;
 
         if(currentScoreDealer === 21 && session.cardsDealer.length < 3) {
           finishViewData.result = "Busted, you lose! Dealer has blackjack!";
@@ -69,8 +65,6 @@ router.route('/finish')
         let currentScoreDealer = score.getScore(session.cardsDealer);
         // if it's 21 with his first two cards it's blackjack for the dealer
         if(currentScoreDealer === 21 && session.cardsDealer.length < 3) {
-          finishViewData.handDealer = session.cardsDealer;
-          finishViewData.scoreDealer = currentScoreDealer;
           finishViewData.result = "Dealer has blackjack! You lose!";
 
         }
