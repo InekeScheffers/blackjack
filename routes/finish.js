@@ -22,7 +22,12 @@ router.route('/finish')
       let currentScoreDealer = score.getScore(session.cardsDealer);
       finishViewData.handDealer = session.cardsDealer;
       finishViewData.scoreDealer = currentScoreDealer;
+
+      if(currentScoreDealer === 21 && session.cardsDealer.length < 3) {
+        finishViewData.result = "Busted, you lose! Dealer has blackjack!";
+      } else {
       finishViewData.result = "Busted, you lose!";
+      }
 
     }
     // Player's score === 21 and this happened with the first two cards (so no extra hit)
