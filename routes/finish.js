@@ -22,7 +22,8 @@ router.route('/finish')
       let currentViewData = viewData.generateFinish(session);
 			currentViewData.isFinished = true;
 			currentViewData.error = "Game is finished, first start a new game."
-			response.render('game', currentViewData);
+			//response.render('game', currentViewData);
+      response.json(currentViewData);
 		}
 		// else finish!
 		else {
@@ -98,7 +99,8 @@ router.route('/finish')
           }
         }
       }
-      response.render('game', finishViewData);
+      //response.render('game', finishViewData);
+      response.json(finishViewData);
     }
   });
 

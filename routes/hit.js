@@ -21,7 +21,8 @@ router.route('/hit')
 			let currentViewData = viewData.generateFinish(session);
 			currentViewData.isFinished = true;
 			currentViewData.error = "Game is finished, first start a new game.";
-			response.render('game', currentViewData);
+			//response.render('game', currentViewData);
+			response.json(currentViewData);
 		}
 		// else hit!
 		else {
@@ -39,7 +40,8 @@ router.route('/hit')
 	  	}
 
 	  	// if it is under 21 render the game with the newly drawn card and score so player can choose hit or stick again
-	  	response.render('game', viewData.generateStart(session));
+	  	//response.render('game', viewData.generateStart(session));
+			response.json(viewData.generateStart(session));
 		}
   })
 

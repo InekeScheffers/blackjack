@@ -15,7 +15,8 @@ router.route('/start')
 		if(session.isFinished === false && session.isFinished !== undefined){
 			let currentViewData = viewData.generateStart(session);
 			currentViewData.error = "First finish this game.";
-			response.render('game', currentViewData);
+			//response.render('game', currentViewData);
+			response.json(currentViewData);
 		}
 		// session.isFinished was never defined yet (game didn't start yet) or it has started and it has ended, deal
 		else if(session.isFinished === undefined || session.isFinished){
@@ -48,7 +49,8 @@ router.route('/start')
 			startViewData.isFinished = false;
 
 	  	// render game and send generated data (cards and scores) to game.pug
-	  	response.render('game', startViewData);
+	  	//response.render('game', startViewData);
+			response.json(startViewData)
 		}
   });
 
